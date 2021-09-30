@@ -11,6 +11,8 @@ function App() {
   );
 }
 
+let funcStyle = 'color:blue';
+let funcId = 0;
 // 함수형 컴포넌트
 function FuncComp(props) {
   let numberState = useState(props.initNumber);
@@ -23,7 +25,7 @@ function FuncComp(props) {
 
   let [_date, setDate] = useState(new Date().toString());
 
-  console.log(numberState);
+  console.log('%cfunc => render' + (++funcId), funcStyle);
   return (
     <div className="container">
       <h2>function style component</h2>
@@ -59,6 +61,16 @@ class ClassComp extends React.Component {
   }
   componentDidMount() {
     console.log('%cclass = > componentDidMount', classStyle);
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('%cclass => shouldComponentUpdate', classStyle);
+    return true;
+  }
+  componentWillUpdate(nextProps, nextState) {
+    console.log('%cclass => componentWillUpdate', classStyle);
+  }
+  componentDidUpdate(nextProps, nextState) {
+    console.log('%cclass => componentDidUpdate', classStyle);
   }
   render() {
     console.log('%cclass => render', classStyle);
