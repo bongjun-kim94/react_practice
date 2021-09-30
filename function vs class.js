@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -15,15 +15,23 @@ let funcStyle = 'color:blue';
 let funcId = 0;
 // 함수형 컴포넌트
 function FuncComp(props) {
-  let numberState = useState(props.initNumber);
-  let number = numberState[0];
-  let setNumber = numberState[1];
+  // let numberState = useState(props.initNumber);
+  // let number = numberState[0];
+  // let setNumber = numberState[1];
+
+  let [number, setNumber] = useState(props.initNumber);
 
   // let dateState = useState(new Date().toString());
   // let _date = dateState[0];
   // let setDate = dateState[1];
 
   let [_date, setDate] = useState(new Date().toString());
+
+  // side effect
+  useEffect(() => {
+    console.log('%cfunc => useEffect (componentDidMount & componentDidUpdate)' + (++funcId), funcStyle);
+    document.title = number + ' : ' + _date;
+  });
 
   console.log('%cfunc => render' + (++funcId), funcStyle);
   return (
