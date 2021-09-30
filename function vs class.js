@@ -48,12 +48,20 @@ function FuncComp(props) {
 }
 
 // 클래스형 컴포넌트
+let classStyle = 'color:red';
 class ClassComp extends React.Component {
   state = {
     number: this.props.initNumber,
     date: new Date().toString(),
-  };
+  }
+  componentWillMount() {
+    console.log('%cclass = > componentWillMount', classStyle);
+  }
+  componentDidMount() {
+    console.log('%cclass = > componentDidMount', classStyle);
+  }
   render() {
+    console.log('%cclass => render', classStyle);
     return (
       <div className="container">
         <h2>class style component</h2>
