@@ -2,11 +2,19 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
+  let [funcShow, setFuncShow] = useState(true);
+  let [classShow, setClassShow] = useState(true);
   return (
     <div className="container">
       <h1>Hello World!</h1>
-      <FuncComp initNumber={2}></FuncComp>
-      <ClassComp initNumber={2}></ClassComp>
+      <input type="button" value="remove_func" onClick={() => {
+        setFuncShow(false);
+      }} />
+      <input type="button" value="remove_camp" onClick={() => {
+        setClassShow(false);
+      }} />
+      {funcShow ? <FuncComp initNumber={2}></FuncComp> : null}
+      {classShow ? <ClassComp initNumber={2}></ClassComp> : null}
     </div>
   );
 }
@@ -27,11 +35,34 @@ function FuncComp(props) {
 
   let [_date, setDate] = useState(new Date().toString());
 
+  useEffect(() => {
+    console.log('%cfunc => useEffect (componentDidMount)' + (++funcId), funcStyle);
+    document.title = [];
+    return function () {
+      console.log('%cfunc => useEffect return (componentWillUnMount)' + (++funcId), funcStyle);
+    }
+    // 1회만 실행 그 이후엔 실행 x
+  }, []);
+
   // side effect
   useEffect(() => {
-    console.log('%cfunc => useEffect (componentDidMount & componentDidUpdate)' + (++funcId), funcStyle);
-    document.title = number + ' : ' + _date;
-  });
+    console.log('%cfunc => useEffect number (componentDidMount & componentDidUpdate)' + (++funcId), funcStyle);
+    document.title = number;
+    // clean up 할때 사용
+    return function () {
+      console.log('%cfunc => useEffect number return (componentDidMount & componentDidUpdate)' + (++funcId), funcStyle);
+    }
+    // 상태가 바뀌었을 때만
+  }, [number]);
+
+  useEffect(() => {
+    console.log('%cfunc => useEffect _date (componentDidMount & componentDidUpdate)' + (++funcId), funcStyle);
+    document.title = _date;
+    return function () {
+      console.log('%cfunc => useEffect _date return (componentDidMount & componentDidUpdate)' + (++funcId), funcStyle);
+    }
+    // 상태가 바뀌었을 때만
+  }, [_date]);
 
   console.log('%cfunc => render' + (++funcId), funcStyle);
   return (
@@ -65,10 +96,10 @@ class ClassComp extends React.Component {
     date: new Date().toString(),
   }
   componentWillMount() {
-    console.log('%cclass = > componentWillMount', classStyle);
+    console.log('%cclass => componentWillMount', classStyle);
   }
   componentDidMount() {
-    console.log('%cclass = > componentDidMount', classStyle);
+    console.log('%cclass => componentDidMount', classStyle);
   }
   shouldComponentUpdate(nextProps, nextState) {
     console.log('%cclass => shouldComponentUpdate', classStyle);
@@ -79,6 +110,9 @@ class ClassComp extends React.Component {
   }
   componentDidUpdate(nextProps, nextState) {
     console.log('%cclass => componentDidUpdate', classStyle);
+  }
+  componentWillUnmount() {
+    console.log('%cclass => componentWillUnMount', classStyle);
   }
   render() {
     console.log('%cclass => render', classStyle);
