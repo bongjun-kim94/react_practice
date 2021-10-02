@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 
 function App() {
   let [funcShow, setFuncShow] = useState(true);
@@ -13,8 +12,8 @@ function App() {
       <input type="button" value="remove_camp" onClick={() => {
         setClassShow(false);
       }} />
-      {funcShow ? <FuncComp initNumber={2}></FuncComp> : null}
-      {classShow ? <ClassComp initNumber={2}></ClassComp> : null}
+      {funcShow ? <FuncComp initNumber={2} /> : null}
+      {classShow ? <ClassComp initNumber={2} /> : null}
     </div>
   );
 }
@@ -23,16 +22,7 @@ let funcStyle = 'color:blue';
 let funcId = 0;
 // 함수형 컴포넌트
 function FuncComp(props) {
-  // let numberState = useState(props.initNumber);
-  // let number = numberState[0];
-  // let setNumber = numberState[1];
-
   let [number, setNumber] = useState(props.initNumber);
-
-  // let dateState = useState(new Date().toString());
-  // let _date = dateState[0];
-  // let setDate = dateState[1];
-
   let [_date, setDate] = useState(new Date().toString());
 
   useEffect(() => {
