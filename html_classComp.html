@@ -7,7 +7,7 @@
     <!-- 개발용 -->
     <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <!-- 배포용 -->
     <!-- <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script> -->
@@ -16,9 +16,7 @@
 </head>
 <body>
     <div id="root"></div> <!-- 결과 : <div id='root'><button>Like</button></div>-->
-    <script>
-        const e = React.createElement;
-
+    <script type="text/babel">
         class LikeButton extends React.Component {
             constructor(props){
                 super(props);
@@ -28,15 +26,19 @@
             }
 
             render() {
-                // <button onclick="{() => { console.log('click')}", type="submit">Like</button>
-                return e('button', { onClick: () => { this.setState({ liked: true }) }, type: 'submit'},
-                    this.state.liked === true ? 'Liked' : 'Like',
-                );
+                // JSX ( JS + XML )
+                return <button type="submit" onClick={() => { this.setState({ liked: true })}}>
+                    {this.state.liked ? 'Liked' : 'Like'}
+                </button>
             }
         } 
     </script>
-    <script>
-        ReactDOM.render(e(LikeButton), document.querySelector('#root'));
+    <script type="text/babel">
+        ReactDOM.render(
+            <>
+                <LikeButton />
+                <LikeButton />
+            </>, document.querySelector('#root'));
     </script>
 </body>
 </html>
