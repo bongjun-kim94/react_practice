@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 class Test extends PureCompoennt {
     state = {
         counter: 0,
+        array: [],
     };
 
     // shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -13,7 +14,9 @@ class Test extends PureCompoennt {
     // }
 
     onClick = () => {
-        this.setState({});
+        this.setState({
+            array: [...this.state.array, 5],
+        });
     };
 
     render() {
